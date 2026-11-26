@@ -58,7 +58,7 @@ class AuthState extends ChangeNotifier {
     required String workspace,
     required String email,
     required String password,
-  }) async {
+  }) async {       
     _busy = true;
     _error = null;
     notifyListeners();

@@ -52,7 +52,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _submit() async {
     FocusScope.of(context).unfocus();
     if (!_formKey.currentState!.validate()) return;
-
+debugPrint('jwefwef:');
     final auth = context.read<AuthState>();
     final ok = await auth.signIn(
       workspace: _workspace.text,

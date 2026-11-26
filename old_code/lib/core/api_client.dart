@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:math';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:flutter/widgets.dart';
 
 import 'config.dart';
 import 'token_storage.dart';
@@ -88,6 +90,7 @@ class ApiClient {
   }
 
   Future<dynamic> _send(Future<Response> Function() request) async {
+    debugPrint('jwefwef: $request');
     final response = await _authorized(request);
     _throwIfError(response);
     return _unwrap(response.data);
