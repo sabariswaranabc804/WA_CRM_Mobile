@@ -1,57 +1,59 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:flutter/foundation.dart';
 
 part 'auth_model.freezed.dart';
 part 'auth_model.g.dart';
 
-
-
 @freezed
-abstract  class AuthModel with _$AuthModel {
+abstract class AuthModel with _$AuthModel {
   const factory AuthModel({
     required bool success,
     required String message,
     required AuthModelData data,
   }) = _AuthModel;
 
-  factory AuthModel.fromJson(Map<String, dynamic> json) => _$AuthModelFromJson(json);
+  factory AuthModel.fromJson(Map<String, dynamic> json) =>
+      _$AuthModelFromJson(json);
 }
 
 @freezed
 abstract class AuthModelData with _$AuthModelData {
   const factory AuthModelData({
     required AuthModelDataUser user,
-    required AuthModelDataTenant tenant,
+    required AuthModelDataTenant? tenant,
     required String accessToken,
     required String refreshToken,
     required int sessionId,
   }) = _AuthModelData;
 
-  factory AuthModelData.fromJson(Map<String, dynamic> json) => _$AuthModelDataFromJson(json);
+  factory AuthModelData.fromJson(Map<String, dynamic> json) =>
+      _$AuthModelDataFromJson(json);
 }
 
 @freezed
 abstract class AuthModelDataUser with _$AuthModelDataUser {
   const factory AuthModelDataUser({
     required String id,
-    required String tenantId,
+    @JsonKey(name: 'tenant_id') required String tenantId,
     required String name,
     required String email,
-    required dynamic? phone,
+    dynamic phone,
     required String status,
-    required dynamic? googleId,
-    required String authProvider,
-    required String lastLoginAt,
-    required String createdAt,
-    required String updatedAt,
-    required List<String> roles,
-    required List<int> roleIds,
-    required List<String> permissions,
-    required List<String> rolePermissions,
-    required List<dynamic> permissionOverrides,
+    @JsonKey(name: 'google_id') dynamic googleId,
+    @JsonKey(name: 'auth_provider') required String authProvider,
+    @JsonKey(name: 'last_login_at') String? lastLoginAt,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
+    @Default([]) List<String> roles,
+    @JsonKey(name: 'role_ids') @Default([]) List<int> roleIds,
+    @Default([]) List<String> permissions,
+    @JsonKey(name: 'role_permissions') @Default([]) List<String> rolePermissions,
+    @JsonKey(name: 'permission_overrides')
+    @Default([])
+    List<dynamic> permissionOverrides,
   }) = _AuthModelDataUser;
 
-  factory AuthModelDataUser.fromJson(Map<String, dynamic> json) => _$AuthModelDataUserFromJson(json);
+  factory AuthModelDataUser.fromJson(Map<String, dynamic> json) =>
+      _$AuthModelDataUserFromJson(json);
 }
 
 @freezed
@@ -62,10 +64,12 @@ abstract class AuthModelDataTenant with _$AuthModelDataTenant {
     required String slug,
     required String status,
     required String timezone,
-    required String createdAt,
-    required String updatedAt,
-    required dynamic? inboxReassignAfterMinutes,
+    @JsonKey(name: 'created_at') required String createdAt,
+    @JsonKey(name: 'updated_at') required String updatedAt,
+    @JsonKey(name: 'inbox_reassign_after_minutes')
+    dynamic inboxReassignAfterMinutes,
   }) = _AuthModelDataTenant;
 
-  factory AuthModelDataTenant.fromJson(Map<String, dynamic> json) => _$AuthModelDataTenantFromJson(json);
+  factory AuthModelDataTenant.fromJson(Map<String, dynamic> json) =>
+      _$AuthModelDataTenantFromJson(json);
 }

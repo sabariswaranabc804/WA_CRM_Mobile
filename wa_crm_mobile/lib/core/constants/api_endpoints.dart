@@ -1,7 +1,9 @@
 /// Canonical API endpoints for the Bulk Chat server (v1).
 class ApiEndpoints {
   static String baseUrl =
-      "https://assistant-served-million-onto.trycloudflare.com/api/v1";
+      "https://bulkchat360.akilamtechnologynexus.com/api/v1";
+  //  "https://confidentiality-female-upgrades-swap.trycloudflare.com/api/v1";
+  // "https://assistant-served-million-onto.trycloudflare.com/api/v1";
 
   // Auth
   static const String login = '/auth/login';

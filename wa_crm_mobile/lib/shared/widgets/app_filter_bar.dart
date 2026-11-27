@@ -30,14 +30,12 @@ class AppFilterBar extends StatelessWidget {
 
     return Container(
       color: AppColors.surface(context),
-      padding: const EdgeInsets.fromLTRB(
-        AppSpacing.md,
-        AppSpacing.sm,
-        AppSpacing.md,
-        AppSpacing.md,
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.xs,
       ),
       child: SizedBox(
-        height: 32,
+        height: 36,
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           itemCount: options.length,
@@ -46,22 +44,41 @@ class AppFilterBar extends StatelessWidget {
             final value = options[i];
             final isSelected = value == selected;
 
+            final selectedBg = isDark
+                ? accent.withValues(alpha: 0.22)
+                : AppColors.primary50;
+            final unselectedBg =
+                isDark ? AppColors.gray900 : Colors.white;
+
             return ChoiceChip(
               label: Text(
                 _label(value),
                 style: TextStyle(
-                  fontSize: 12.5,
-                  fontWeight: FontWeight.w600,
-                  color: isSelected ? Colors.white : AppColors.subtitle(context),
+                  fontSize: 13,
+                  fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                  color: isSelected
+                      ? accent
+                      : AppColors.subtitle(context),
                 ),
               ),
               selected: isSelected,
               showCheckmark: false,
-              backgroundColor: isDark ? AppColors.gray800 : AppColors.slate100,
-              selectedColor: accent,
-              side: BorderSide.none,
+              backgroundColor: unselectedBg,
+              selectedColor: selectedBg,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(AppRadius.pill),
+                side: BorderSide(
+                  color: isSelected
+                      ? accent.withValues(alpha: 0.45)
+                      : AppColors.border(context),
+                  width: 1.0,
+                ),
+              ),
               visualDensity: VisualDensity.compact,
-              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md,
+                vertical: 2,
+              ),
               onSelected: (_) => onSelected(value),
             );
           },

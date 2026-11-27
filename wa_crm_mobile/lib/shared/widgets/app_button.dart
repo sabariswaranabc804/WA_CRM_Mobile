@@ -95,7 +95,7 @@ class AppButton extends StatelessWidget {
           onPressed: enabled ? onPressed : null,
           style: style.copyWith(
             backgroundColor:
-                const WidgetStatePropertyAll(AppColors.dangerStrong),
+                 WidgetStatePropertyAll(AppColors.dangerStrong),
             foregroundColor: const WidgetStatePropertyAll(Colors.white),
           ),
           child: child,

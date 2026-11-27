@@ -118,15 +118,33 @@ ThemeData _build(Brightness brightness) {
     navigationBarTheme: NavigationBarThemeData(
       backgroundColor: isDark ? AppColors.gray900 : Colors.white,
       surfaceTintColor: Colors.transparent,
+      elevation: 3,
       indicatorColor: (isDark ? AppColors.primaryDark : AppColors.primary)
-          .withValues(alpha: 0.14),
-      labelTextStyle: const WidgetStatePropertyAll(
-        TextStyle(
+          .withValues(alpha: 0.16),
+      iconTheme: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return IconThemeData(
+            color: isDark ? AppColors.primaryDark : AppColors.primary,
+          );
+        }
+        return IconThemeData(color: subtitle);
+      }),
+      labelTextStyle: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return TextStyle(
+            fontFamily: kFontFamily,
+            fontSize: 11.5,
+            fontWeight: FontWeight.w700,
+            color: isDark ? AppColors.primaryDark : AppColors.primary,
+          );
+        }
+        return TextStyle(
           fontFamily: kFontFamily,
           fontSize: 11.5,
-          fontWeight: FontWeight.w600,
-        ),
-      ),
+          fontWeight: FontWeight.w500,
+          color: subtitle,
+        );
+      }),
     ),
 
     snackBarTheme: const SnackBarThemeData(

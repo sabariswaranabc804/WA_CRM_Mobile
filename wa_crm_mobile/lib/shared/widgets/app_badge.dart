@@ -49,19 +49,21 @@ class AppCountBadge extends StatelessWidget {
   Widget build(BuildContext context) {
     if (count <= 0) return const SizedBox.shrink();
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-      constraints: const BoxConstraints(minWidth: 21),
+      padding: const EdgeInsets.symmetric(horizontal: 6.5, vertical: 2),
+      constraints: const BoxConstraints(minWidth: 20, minHeight: 20),
       decoration: BoxDecoration(
-        color: AppColors.secondary,
+        color: AppColors.accent(context),
         borderRadius: BorderRadius.circular(AppRadius.pill),
       ),
-      child: Text(
-        '$count',
-        textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 11.5,
-          fontWeight: FontWeight.w700,
+      child: Center(
+        child: Text(
+          '$count',
+          textAlign: TextAlign.center,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 11,
+            fontWeight: FontWeight.w700,
+          ),
         ),
       ),
     );

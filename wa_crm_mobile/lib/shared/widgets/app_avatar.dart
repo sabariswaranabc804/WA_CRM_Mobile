@@ -18,15 +18,17 @@ class AppAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = AppColors.avatarColors(context, id);
+
     return CircleAvatar(
       radius: radius,
-      backgroundColor: avatarColorFor(id),
+      backgroundColor: colors.bg,
       child: Text(
         initialsFor(name),
         style: TextStyle(
-          color: Colors.white,
-          fontWeight: FontWeight.w600,
-          fontSize: radius * 0.72,
+          color: colors.fg,
+          fontWeight: FontWeight.w700,
+          fontSize: radius * 0.70,
         ),
       ),
     );

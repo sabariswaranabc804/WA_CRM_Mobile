@@ -1,9 +1,9 @@
-
 import 'package:dio/dio.dart';
 
 import '../constants/api_endpoints.dart';
 import '../storage/token_storage.dart';
 import 'auth_interceptor.dart';
+import 'logging_interceptor.dart';
 
 class DioClient {
   late final Dio dio;
@@ -30,14 +30,17 @@ class DioClient {
     // It does not contain AuthInterceptor.
     refreshDio = Dio(options);
 
-    dio.interceptors.add(
+    dio.interceptors.addAll([
       AuthInterceptor(
         dio: dio,
         refreshDio: refreshDio,
         tokenStorage: tokenStorage,
-        refreshUrl: ApiEndpoints.refreshToken,
+        refreshUrl: ApiEndpoints.refresh,
         onSessionExpired: onSessionExpired,
       ),
-    );
+      LoggingInterceptor(),
+    ]);
+
+    refreshDio.interceptors.add(LoggingInterceptor());
   }
 }

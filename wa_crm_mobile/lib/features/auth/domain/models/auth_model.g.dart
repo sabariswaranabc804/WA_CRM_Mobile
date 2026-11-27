@@ -22,9 +22,11 @@ Map<String, dynamic> _$AuthModelToJson(_AuthModel instance) =>
 _AuthModelData _$AuthModelDataFromJson(Map<String, dynamic> json) =>
     _AuthModelData(
       user: AuthModelDataUser.fromJson(json['user'] as Map<String, dynamic>),
-      tenant: AuthModelDataTenant.fromJson(
-        json['tenant'] as Map<String, dynamic>,
-      ),
+      tenant: json['tenant'] == null
+          ? null
+          : AuthModelDataTenant.fromJson(
+              json['tenant'] as Map<String, dynamic>,
+            ),
       accessToken: json['accessToken'] as String,
       refreshToken: json['refreshToken'] as String,
       sessionId: (json['sessionId'] as num).toInt(),
@@ -42,47 +44,56 @@ Map<String, dynamic> _$AuthModelDataToJson(_AuthModelData instance) =>
 _AuthModelDataUser _$AuthModelDataUserFromJson(Map<String, dynamic> json) =>
     _AuthModelDataUser(
       id: json['id'] as String,
-      tenantId: json['tenantId'] as String,
+      tenantId: json['tenant_id'] as String,
       name: json['name'] as String,
       email: json['email'] as String,
       phone: json['phone'],
       status: json['status'] as String,
-      googleId: json['googleId'],
-      authProvider: json['authProvider'] as String,
-      lastLoginAt: json['lastLoginAt'] as String,
-      createdAt: json['createdAt'] as String,
-      updatedAt: json['updatedAt'] as String,
-      roles: (json['roles'] as List<dynamic>).map((e) => e as String).toList(),
-      roleIds: (json['roleIds'] as List<dynamic>)
-          .map((e) => (e as num).toInt())
-          .toList(),
-      permissions: (json['permissions'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      rolePermissions: (json['rolePermissions'] as List<dynamic>)
-          .map((e) => e as String)
-          .toList(),
-      permissionOverrides: json['permissionOverrides'] as List<dynamic>,
+      googleId: json['google_id'],
+      authProvider: json['auth_provider'] as String,
+      lastLoginAt: json['last_login_at'] as String?,
+      createdAt: json['created_at'] as String,
+      updatedAt: json['updated_at'] as String,
+      roles:
+          (json['roles'] as List<dynamic>?)?.map((e) => e as String).toList() ??
+          const [],
+      roleIds:
+          (json['role_ids'] as List<dynamic>?)
+              ?.map((e) => (e as num).toInt())
+              .toList() ??
+          const [],
+      permissions:
+          (json['permissions'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      rolePermissions:
+          (json['role_permissions'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
+      permissionOverrides:
+          json['permission_overrides'] as List<dynamic>? ?? const [],
     );
 
 Map<String, dynamic> _$AuthModelDataUserToJson(_AuthModelDataUser instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'tenantId': instance.tenantId,
+      'tenant_id': instance.tenantId,
       'name': instance.name,
       'email': instance.email,
       'phone': instance.phone,
       'status': instance.status,
-      'googleId': instance.googleId,
-      'authProvider': instance.authProvider,
-      'lastLoginAt': instance.lastLoginAt,
-      'createdAt': instance.createdAt,
-      'updatedAt': instance.updatedAt,
+      'google_id': instance.googleId,
+      'auth_provider': instance.authProvider,
+      'last_login_at': instance.lastLoginAt,
+      'created_at': instance.createdAt,
+      'updated_at': instance.updatedAt,
       'roles': instance.roles,
-      'roleIds': instance.roleIds,
+      'role_ids': instance.roleIds,
       'permissions': instance.permissions,
-      'rolePermissions': instance.rolePermissions,
-      'permissionOverrides': instance.permissionOverrides,
+      'role_permissions': instance.rolePermissions,
+      'permission_overrides': instance.permissionOverrides,
     };
 
 _AuthModelDataTenant _$AuthModelDataTenantFromJson(Map<String, dynamic> json) =>
@@ -92,9 +103,9 @@ _AuthModelDataTenant _$AuthModelDataTenantFromJson(Map<String, dynamic> json) =>
       slug: json['slug'] as String,
       status: json['status'] as String,
       timezone: json['timezone'] as String,
-      createdAt: json['createdAt'] as String,
-      updatedAt: json['updatedAt'] as String,
-      inboxReassignAfterMinutes: json['inboxReassignAfterMinutes'],
+      createdAt: json['created_at'] as String,
+      updatedAt: json['updated_at'] as String,
+      inboxReassignAfterMinutes: json['inbox_reassign_after_minutes'],
     );
 
 Map<String, dynamic> _$AuthModelDataTenantToJson(
@@ -105,7 +116,7 @@ Map<String, dynamic> _$AuthModelDataTenantToJson(
   'slug': instance.slug,
   'status': instance.status,
   'timezone': instance.timezone,
-  'createdAt': instance.createdAt,
-  'updatedAt': instance.updatedAt,
-  'inboxReassignAfterMinutes': instance.inboxReassignAfterMinutes,
+  'created_at': instance.createdAt,
+  'updated_at': instance.updatedAt,
+  'inbox_reassign_after_minutes': instance.inboxReassignAfterMinutes,
 };

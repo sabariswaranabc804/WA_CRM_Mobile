@@ -1,5 +1,5 @@
-
 import 'package:dio/dio.dart';
+import 'api_exception.dart';
 
 class ApiClient {
   final Dio _dio;
@@ -8,18 +8,24 @@ class ApiClient {
 
   Future<dynamic> getApiConnection({
     required String url,
+    Map<String, dynamic>? queryParameters,
     bool requiresAuth = true,
   }) async {
-    final response = await _dio.get(
-      url,
-      options: Options(
-        extra: {
-          'requiresAuth': requiresAuth,
-        },
-      ),
-    );
+    try {
+      final response = await _dio.get(
+        url,
+        queryParameters: queryParameters,
+        options: Options(
+          extra: {
+            'requiresAuth': requiresAuth,
+          },
+        ),
+      );
 
-    return response.data;
+      return response.data;
+    } on DioException catch (e) {
+      throw ApiException.fromDio(e);
+    }
   }
 
   Future<dynamic> postApiConnection({
@@ -27,17 +33,21 @@ class ApiClient {
     required dynamic params,
     bool requiresAuth = true,
   }) async {
-    final response = await _dio.post(
-      url,
-      data: params,
-      options: Options(
-        extra: {
-          'requiresAuth': requiresAuth,
-        },
-      ),
-    );
+    try {
+      final response = await _dio.post(
+        url,
+        data: params,
+        options: Options(
+          extra: {
+            'requiresAuth': requiresAuth,
+          },
+        ),
+      );
 
-    return response.data;
+      return response.data;
+    } on DioException catch (e) {
+      throw ApiException.fromDio(e);
+    }
   }
 
   Future<dynamic> putApiConnection({
@@ -45,32 +55,40 @@ class ApiClient {
     required dynamic params,
     bool requiresAuth = true,
   }) async {
-    final response = await _dio.put(
-      url,
-      data: params,
-      options: Options(
-        extra: {
-          'requiresAuth': requiresAuth,
-        },
-      ),
-    );
+    try {
+      final response = await _dio.put(
+        url,
+        data: params,
+        options: Options(
+          extra: {
+            'requiresAuth': requiresAuth,
+          },
+        ),
+      );
 
-    return response.data;
+      return response.data;
+    } on DioException catch (e) {
+      throw ApiException.fromDio(e);
+    }
   }
 
   Future<dynamic> deleteApiConnection({
     required String url,
     bool requiresAuth = true,
   }) async {
-    final response = await _dio.delete(
-      url,
-      options: Options(
-        extra: {
-          'requiresAuth': requiresAuth,
-        },
-      ),
-    );
+    try {
+      final response = await _dio.delete(
+        url,
+        options: Options(
+          extra: {
+            'requiresAuth': requiresAuth,
+          },
+        ),
+      );
 
-    return response.data;
+      return response.data;
+    } on DioException catch (e) {
+      throw ApiException.fromDio(e);
+    }
   }
 }
